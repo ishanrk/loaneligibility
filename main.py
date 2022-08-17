@@ -117,15 +117,18 @@ nx.draw_networkx_edges(
 
 plt.show()
 
+#create a BN
 bn = BayesianNetwork(sm)    
 
 from sklearn.model_selection import train_test_split
 
 train, test = train_test_split(discretised_data, train_size=0.8, test_size=0.2, random_state=7)
 
+#fit it with cpds from the discretised dataset
 bn = bn.fit_node_states(discretised_data)
 
 bn = bn.fit_cpds(train, method="BayesianEstimator", bayes_prior="K2")
 
+#inference based on dependent factors here
 print(bn.cpds["Loan_Status"])
         
